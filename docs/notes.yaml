@@ -1,0 +1,314 @@
+openapi: 3.0.3
+info:
+  title: Notes API - OpenAPI 3.0
+  description: |-
+    Tugas BE Notes
+  version: 1.0.11
+servers:
+  - url: http://localhost:3000/api/v1
+tags:
+  - name: notes
+    description: Operations about note
+paths:
+  /notes:
+    get:
+      summary: List notes
+      description: Get all notes
+      operationId: getNotes
+      tags:
+        - notes
+      responses:
+        '200':
+          description: A list of notes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: array
+                example:
+                  status: true
+                  message: Success Get Notes
+                  data:
+                    - id: 1
+                      title: Study Express JS
+                      datetime: 2024-02-20
+                      note: Study Express JS
+                    - id: 2
+                      title: Study Elysia JS
+                      datetime: 2024-02-21
+                      note: Study Elysia JS
+        '404':
+          description: Note not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: array
+                example:
+                  status: false
+                  message: Note not found
+                  data: null
+    post:
+      summary: Create note
+      description: Create a new note
+      tags:
+        - notes
+      operationId: createNote
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                note:
+                  type: string
+                datetime:
+                  type: string
+              required:
+                - title
+                - note
+                - datetime
+              example:
+                title: Study Hono JS
+                note: Study Hono JS
+                datetime: 2024-02-22
+      responses:
+        '200':
+          description: A note
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                example:
+                  status: true
+                  message: Note created
+                  data: null
+  /notes/{id}:
+    get:
+      summary: Get note by id
+      description: Get note by id
+      operationId: getNoteById
+      tags:
+        - notes
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 1
+      responses:
+        '200':
+          description: A note
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                example:
+                  status: true
+                  message: Success Get Note
+                  data: 
+                    id: 1
+                    title: Study Express JS
+                    datetime: 2024-02-20
+                    note: Study Express JS
+        '404':
+          description: Note not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                example:
+                  status: false
+                  message: Note not found
+                  data: null
+    put:
+      summary: Update note
+      description: Update a note
+      tags:
+        - notes
+      operationId: updateNote
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                note:
+                  type: string
+                datetime:
+                  type: string
+              required:
+                - title
+                - note
+                - datetime
+              example:
+                title: Study Nuxt JS
+                note: Study Nuxt JS
+                datetime: 2024-02-23
+      responses:
+        '200':
+          description: A note
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                example:
+                  status: true
+                  message: Note updated
+                  data: null
+        '404':
+          description: Note not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                example:
+                  status: false
+                  message: Note not found
+                  data: null
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                example:
+                  status: false
+                  message: Bad Request
+                  data: null
+    delete:
+      summary: Delete note
+      description: Delete a note
+      operationId: deleteNote
+      tags:
+        - notes
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 1
+      responses:
+        '200':
+          description: A note
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                example:
+                  status: true
+                  message: Note deleted
+                  data: null
+        '404':
+          description: Note not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                example:
+                  status: false
+                  message: Note not found
+                  data: null
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                example:
+                  status: false
+                  message: Bad Request
+                  data: null
+
+
+
